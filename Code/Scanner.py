@@ -64,6 +64,7 @@ def main():
             listinorder.append(about_me[i])
             while about_me[i].lower() != "*/":
                 i = i + 1
+            i = i + 1
 
         elif about_me[i].lower() == "define":
             keywords.append(about_me[i])
