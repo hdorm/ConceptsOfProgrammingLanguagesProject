@@ -37,7 +37,7 @@ def main():
 
     identifiers = [""]
 
-    listinorder = [""]
+    complete_list = [""]
 
     # user inputs filename
 
@@ -61,26 +61,26 @@ def main():
 
         if about_me[i].lower() == "description":
             keywords.append(about_me[i])
-            listinorder.append(about_me[i])
+            complete_list.append(about_me[i])
             while about_me[i].lower() != "*/":
                 i = i + 1
             i = i + 1
 
         elif about_me[i].lower() == "define":
             keywords.append(about_me[i])
-            listinorder.append(about_me[i])
+            complete_list.append(about_me[i])
             identifiers.append(about_me[i + 1])
-            listinorder.append(about_me[i + 1])
+            complete_list.append(about_me[i + 1])
             i = i + 2
 
         elif about_me[i].upper() in ref_keyword:
             keywords.append(about_me[i])
-            listinorder.append(about_me[i])
+            complete_list.append(about_me[i])
             i = i + 1
 
         elif about_me[i].upper() in ref_operators:
             operators.append(about_me[i])
-            listinorder.append(about_me[i])
+            complete_list.append(about_me[i])
             i = i + 1
 
         else:
@@ -115,8 +115,8 @@ def main():
 
     print("______________complete list______________ ")
 
-    for i in range(len(listinorder)):
-        print(listinorder[i])
+    for i in range(len(complete_list)):
+        print(complete_list[i])
 
     keywords.extend(identifiers)
     keywords.extend(operators)
