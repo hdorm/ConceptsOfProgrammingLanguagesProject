@@ -37,6 +37,8 @@ def main():
 
     identifiers = [""]
 
+    listinorder = [""]
+
     # user inputs filename
 
     file_name = input("Type in the name of the file with the extension: ")
@@ -54,21 +56,34 @@ def main():
     about_me = f.read().split()
 
     # Scans for keywords, operators, and identifiers then adds them to the matching lists
+    i = 0
+    while i < len(about_me):
 
-    for i in range(len(about_me)):
-
-        if about_me[i].upper() in ref_keyword and about_me[i] not in keywords:
+        if about_me[i].lower() == "description":
             keywords.append(about_me[i])
+            listinorder.append(about_me[i])
+            while about_me[i].lower() != "*/":
+                i = i + 1
 
-    for i in range(len(about_me)):
-
-        if about_me[i].lower() == "define":
-
+        elif about_me[i].lower() == "define":
+            keywords.append(about_me[i])
+            listinorder.append(about_me[i])
             identifiers.append(about_me[i + 1])
+            listinorder.append(about_me[i + 1])
+            i = i + 2
 
-        elif about_me[i].upper() in ref_operators and about_me[i] not in operators:
+        elif about_me[i].upper() in ref_keyword:
+            keywords.append(about_me[i])
+            listinorder.append(about_me[i])
+            i = i + 1
 
+        elif about_me[i].upper() in ref_operators:
             operators.append(about_me[i])
+            listinorder.append(about_me[i])
+            i = i + 1
+
+        else:
+            i = i + 1
 
         # close the file
 
@@ -96,6 +111,11 @@ def main():
 
     for i in range(len(operators)):
         print(operators[i])
+
+    print("______________complete list______________ ")
+
+    for i in range(len(listinorder)):
+        print(listinorder[i])
 
     keywords.extend(identifiers)
     keywords.extend(operators)
