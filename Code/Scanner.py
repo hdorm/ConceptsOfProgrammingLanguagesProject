@@ -24,7 +24,8 @@ ref_operators = ["+", "-", "/", "*", "**", "=", ">", "<", "^= *", "Â¬= *", ">=
                  "|", "Â¬ *", "^ *", "~ *", "AND ", "OR", "NOT", "IN", ":"]
 
 # list of identifiers that are in the scl language
-ref_identifiers = ["identifier"]
+ref_identifiers = ["define", "symbol"]
+found_identifiers = []
 
 
 def name_and_split():
@@ -64,21 +65,27 @@ def next_token(i, about_me):
 
 
 def is_keyword(i, about_me):
-    if about_me[i].lower() in ref_keyword:
+    if about_me[i].upper() in ref_keyword:
         return True
-    elif about_me[i].lower() not in ref_keyword:
+    elif about_me[i].upper() not in ref_keyword:
         return False
 
 
 def is_operand(i, about_me):
-    if about_me[i].lower() in ref_operators:
+    if about_me[i].upper() in ref_operators:
         return True
-    elif about_me[i].lower() not in ref_operators:
+    elif about_me[i].upper() not in ref_operators:
         return False
 
 
 def is_identifier(i, about_me):
     if about_me[i].lower() in ref_identifiers:
+        found_identifiers.append(about_me[i + 1].lower())
+        return True
+    elif about_me[i - 1].lower() in ref_identifiers:
+        found_identifiers.append(about_me[i].lower())
+        return True
+    elif about_me[i].lower() in found_identifiers:
         return True
     elif about_me[i].lower() not in ref_identifiers:
         return False
